@@ -37,14 +37,14 @@ td, th {
 <div class="w3-content" style="max-width:2000px;margin-top:46px">
   
   <!-- The Home Section -->
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px">
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
     <!-- Home -->
     <h1> Solving the 15-Puzzle with Parallel A* </h1>
     <h3> William Xiao (williamx), Anna Gupta (annag) </h3>
   </div>
 
   <!-- The Proposal Section -->
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="proposal">
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="proposal">
     <h1> Proposal </h1>
     
     <p class="w3-justify">
@@ -56,7 +56,8 @@ td, th {
     <p class="w3-justify">
     <font size="5"> Summary </font>
     <br>
-    We will implement a parallel version of the A* algorithm to solve the 15-Puzzle with minimal moves on the Gates machines.
+    We will implement a parallel version of the A* algorithm to solve the 15-Puzzle with minimal moves on the Gates 
+    or latedays machines.
     </p>
     
     <p class="w3-justify">
@@ -108,7 +109,7 @@ td, th {
     </p>
     Goals: 
     <ul class="w3-justify">
-    <li> Implement a sequential version of A*, in the context of the 15-Puzzle </li>
+    <li> Implement a sequential version of A* in the context of the 15-Puzzle </li>
     <li> Research the A* algorithm and determine a desired speed-up goal between sequential and parallel versions </li>
     <li> Implement a parallel version using CUDA, achieving the desired speed-up </li>
     <li> Compare speed-up across varying number of threads and determine an optimal number of threads to use</li>
@@ -117,15 +118,19 @@ td, th {
       
     If time permits:
     <ul class="w3-justify">
-    <li> Experiment with variants of the A* algorithm and compare which result in the largest speedup</li>
+    <li> Experiment with variants of the A* algorithm and compare which results in the largest speedup</li>
     <li> Achieve parallelism through different method - for example, using OpenMP </li>
     </ul> 
+    
+    <p class="w3-justify">
+    
+    </p>
     
     <p class="w3-justify">
     <br>
     <font size="5"> Platform Choice </font>
     <br>
-    Using CUDA will give us access to a large number of threads - which will be useful in solving large instances of the puzzle. 
+    CUDA will give us access to a large number of threads - which will be useful in solving large instances of the puzzle. 
     In addition, we can utilize thread blocks and shared memory as a form of communication between the threads. 
     </p>
     
@@ -160,14 +165,14 @@ td, th {
   </div>
 
   <!-- The Checkpoint Section -->
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="checkpoint">
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="checkpoint">
     <p class="w3-justify"> 
     <!-- Checkpoint -->
     </p>
   </div>
 
   <!-- The Final Report Section -->
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="report">
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="report">
     <p class="w3-justify"> 
     <!-- Report -->
     </p>

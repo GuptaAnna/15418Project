@@ -67,7 +67,12 @@ body {font-family: "Lato", sans-serif}
     <p class="w3-justify">
     <font size="5"> The Challenge </font>
     <br>
-    Unlike other graph-search algorithms, A* is difficult to implement in parallel due to the heuristic. 
+    Unlike other graph-search algorithms, A* is difficult to implement in parallel due to the heuristic. The sequential version of
+    the algorithm utilizes a priority queue, ranking the nodes by cost or preference. In an iteration, the least-cost node is popped 
+    from the priority queue, information is updated, and the neighbors of the node are added to the queue. These neighbors could 
+    have a higher preference than nodes previously existing in the queue, making it difficult to utilize multiple threads. It might 
+    not be viable to have multiple threads working on different nodes in the queue - since the second-preferred node in the queue 
+    may not be the first-preferred node after the iteration. 
     </p>
     
     <p class="w3-justify">
@@ -98,6 +103,7 @@ body {font-family: "Lato", sans-serif}
     </ul> 
     
     <p class="w3-justify">
+    <br>
     <font size="5"> Platform Choice </font>
     Using CUDA will give us access to a large number of threads - which will be useful in solving large instances of the puzzle. 
     In addition, we can utilize thread blocks and shared memory as a form of communication between the threads. 

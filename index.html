@@ -52,10 +52,12 @@ body {font-family: "Lato", sans-serif}
     The object of the game is to place the tiles in numerical order by sliding tiles, using the empty space.
     The puzzle can come in different sizes; in general, a NxN frame will use tiles numbered from 1 to N<sup>2</sup> - 1. 
       
+    <br>
     The game can be represented as a graph, with nodes being the state of the board and edges representing an action 
     (sliding a particular tile). We would like to implement a graph-searching algorithm to find the shortest sequence of moves
     to solve the puzzle. 
       
+    <br>
     In graph-search algorithms, a heuristic ranks edges from a node, based on an algorithm. This decides which actions are preferable, 
     given the state of the game. The 15-Puzzle is perfect for an algorithm involving heuristics. One possible heuristic for the puzzle 
     uses the taxicab distances for each tile (difference in distance between actual and desired positions). This opens the door for us 
@@ -77,6 +79,7 @@ body {font-family: "Lato", sans-serif}
     <p class="w3-justify">
     <font size="5"> Goals &amp; Deliverables </font>
     Goals: 
+    </p>
     <ul>
     <li> Implement a sequential version of A*, in the context of the 15-Puzzle </li>
     <li> Implement a parallel version using CUDA </li>
@@ -84,8 +87,6 @@ body {font-family: "Lato", sans-serif}
     <li> Experiment with variants of the A* algorithm and compare which result in the largest speedup</li>
     <li> Achieve parallelism through different method - for example, using OpenMP </li>
     </ul> 
-    
-    </p>
     
     <p class="w3-justify">
     <font size="5"> Platform Choice </font>

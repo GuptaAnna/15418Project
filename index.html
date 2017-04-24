@@ -161,14 +161,46 @@ td, th {
         <td>Optimize implementation and finish final report + presentation</td>
       </tr>
     </table>
-    
-    
   </div>
-
+    
   <!-- The Checkpoint Section -->
   <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="checkpoint">
+    <h1> Checkpoint </h1>
+    
     <p class="w3-justify"> 
-    <!-- Checkpoint -->
+    <font size="5"> Work Completed </font>
+    <br>
+    The goal of our project is to implement a parallel version of A* to solve the 15-Puzzle. 
+    We've successfully implemented a sequential version of the algorithm. In particular: 
+    <ul class="w3-justify">
+    <li> We created an abstract State class, representing the state of the game at a point in time. The class has both implemented
+         and virtual methods. The implemented methods are general and related to A*, while the virtual methods are defined 
+         in the extending class. This design generalizes the state class, allowing it to be used for different games. </li>
+    <li> We created a Board class to extend the State class. We represent the game board with a 2-D array of integers, 
+         storing the numbers of the tiles. We allow a board to be created in two ways: 
+         <ul>
+           <li> Randomly generating a permutation of the numbers in the range 1 to n. We check if the board layout has a valid
+                solution (in the context of the 15-Puzzle); if not, we swap two letters. </li>
+           <li> Starting from the goal board and randomly making valid moves </li>
+         </ul>
+    </li> 
+    <li> We implemented our own priority queue class, as the c++ library does not support the remove function. We utilize 
+          this priority queue implementation in the A* algorithm.  </li>
+    <li> We developed a sequential version of the A* algorithm using the Board class. Going forward, our parallel version 
+      will use the same Board class. </li>
+    </ul> 
+    </p>
+    
+    <p class="w3-justify"> 
+    <font size="5"> Updated Schedule </font>
+    <br>
+    Solving the 15-Puzzle with Parallel A*
+    </p>
+    
+    <p class="w3-justify"> 
+    <font size="5"> Updated Goals &amp; Deliverables </font>
+    <br>
+    Solving the 15-Puzzle with Parallel A*
     </p>
   </div>
 

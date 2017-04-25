@@ -172,6 +172,7 @@ td, th {
     <br>
     The goal of our project is to implement a parallel version of A* to solve the 15-Puzzle. 
     We've successfully implemented a sequential version of the algorithm. In particular: 
+    </p>
     <ul class="w3-justify">
     <li> We created an abstract State class, representing the state of the game at a point in time. The class has both implemented
          and virtual methods. The implemented methods are general and related to A*, while the virtual methods are defined 
@@ -189,7 +190,6 @@ td, th {
     <li> We developed a sequential version of the A* algorithm using the Board class. Going forward, our parallel version 
       will use the same Board class. </li>
     </ul> 
-    </p>
     
     <p class="w3-justify"> 
     <font size="5"> Updated Schedule </font>
@@ -227,8 +227,23 @@ td, th {
     <p class="w3-justify"> 
     <font size="5"> Updated Goals &amp; Deliverables </font>
     <br>
-    Solving the 15-Puzzle with Parallel A*
+    So far, we are on schedule, as detailed in our proposal. We have begun researching possible ways to parallelize A* and
+    designing our implementation. In previous attempts of parallel A*, researchers have sacrificed optimality of the solution
+    for speed. Therefore, the parallel versions, although fast, may not return the best solution.
+    <br>
+    Going forward, one concern we have is whether we will have to sacrifice optimality as well. Initially, we hoped to achieve 
+    great speed-up while also returning the optimal solution. If time permits, we will implement multiple versions of parallel
+    A*, varying in optimality of the solution. From this, we can compare the correlation between speed-up and suboptimality. 
+    <br>
     </p>
+    Updated Goals:
+    <ul class="w3-justify">
+    <li> Implement a sequential version of A* in the context of the 15-Puzzle </li>
+    <li> Research the A* algorithm and determine a desired speed-up goal between sequential and parallel versions </li>
+    <li> Implement a parallel version using CUDA, achieving the desired speed-up </li>
+    <li> Compare speed-up across varying number of threads and determine an optimal number of threads to use</li>
+    <li> Test our implementation on larger versions of the 15-Puzzle, varying the width of the board</li>
+    </ul> 
   </div>
 
   <!-- The Final Report Section -->

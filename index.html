@@ -181,14 +181,14 @@ td, th {
          storing the numbers of the tiles. We allow a board to be created in two ways: 
          <ul>
            <li> Randomly generating a permutation of the numbers in the range 1 to n. We check if the board layout has a valid
-                solution (in the context of the 15-Puzzle); if not, we swap two letters. </li>
+                solution (in the context of the 15-Puzzle); if not, we fix it by swapping two numbers. </li>
            <li> Starting from the goal board and randomly making valid moves </li>
          </ul>
     </li> 
-    <li> We implemented our own priority queue class, as the c++ library does not support the remove function. We utilize 
+    <li> We implemented our own priority queue class, as the c++ library does not support an efficient remove function. We utilize 
           this priority queue implementation in the A* algorithm.  </li>
-    <li> We developed a sequential version of the A* algorithm using the Board class. Going forward, our parallel version 
-      will use the same Board class. </li>
+    <li> We developed a sequential version of the A* algorithm using the State class. Going forward, our parallel version 
+      will also use the State class. </li>
     </ul> 
     
     <p class="w3-justify"> 
@@ -238,11 +238,11 @@ td, th {
     </p>
     Updated Goals:
     <ul class="w3-justify">
-    <li> Implement a sequential version of A* in the context of the 15-Puzzle </li>
-    <li> Research the A* algorithm and determine a desired speed-up goal between sequential and parallel versions </li>
-    <li> Implement a parallel version using CUDA, achieving the desired speed-up </li>
-    <li> Compare speed-up across varying number of threads and determine an optimal number of threads to use</li>
-    <li> Test our implementation on larger versions of the 15-Puzzle, varying the width of the board</li>
+    <li> Optimize State and/or Board classes to improve both sequential and parallel efficiency </li>
+    <li> Determine a desired speed-up goal for the parallel algorithm compared to the baseline </li>
+    <li> Implement a parallel version using CUDA, based on results of research papers </li>
+    <li> Determine an optimal number of threads to use for the parallel version </li>
+    <li> Test our implementation on larger board sizes of the puzzle </li>
     </ul> 
   </div>
 

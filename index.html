@@ -161,14 +161,97 @@ td, th {
         <td>Optimize implementation and finish final report + presentation</td>
       </tr>
     </table>
-    
-    
   </div>
-
+    
   <!-- The Checkpoint Section -->
   <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="checkpoint">
+    <h1> Checkpoint </h1>
+    
     <p class="w3-justify"> 
-    <!-- Checkpoint -->
+    <font size="5"> Work Completed </font>
+    <br>
+    The goal of our project is to implement a parallel version of A* to solve the 15-Puzzle. 
+    We've successfully implemented a sequential version of the algorithm. In particular: 
+    </p>
+    <ul class="w3-justify">
+    <li> We created an abstract State class, representing the state of the game at a point in time. The class has both implemented
+         and virtual methods. The implemented methods are general and related to A*, while the virtual methods are defined 
+         in the extending class. This design generalizes the state class, allowing it to be used for different games. </li>
+    <li> We created a Board class to extend the State class. We represent the game board with a 2-D array of integers, 
+         storing the numbers of the tiles. We allow a board to be created in two ways: 
+         <ul>
+           <li> Randomly generating a permutation of the numbers in the range 1 to n. We check if the board layout has a valid
+                solution (in the context of the 15-Puzzle); if not, we fix it by swapping two numbers. </li>
+           <li> Starting from the goal board and randomly making valid moves </li>
+         </ul>
+    </li> 
+    <li> We implemented our own priority queue class, as the c++ library does not support an efficient remove function. We utilize 
+          this priority queue implementation in the A* algorithm.  </li>
+    <li> We developed a sequential version of the A* algorithm using the State class. Going forward, our parallel version 
+      will also use the State class. </li>
+    </ul> 
+    
+    <p class="w3-justify"> 
+    <font size="5"> Updated Schedule </font>
+    <br>
+    </p>
+    
+    <table>
+      <tr>
+        <th>Time Period:</th>
+        <th>Task: William</th>
+        <th>Task: Anna</th>
+      </tr>
+      <tr>
+        <td>April 24-27</td>
+        <td>Brainstorm different methods of parallelizing A*</td>
+        <td>Research and understand shared priority queues</td>
+      </tr>
+      <tr>
+        <td>May 2-5</td>
+        <td>Implement parallel version of A*</td>
+        <td>Implement parallel version of A*</td>
+      </tr>
+      <tr>
+        <td>May 6-9</td>
+        <td>Test implementation on larger grids + make optimizations as necessary </td>
+        <td>Compare speed-up across threads + determine optimal number of threads</td>
+      </tr>
+      <tr>
+        <td>May 10-12</td>
+        <td>Finish final report + presentation</td>
+        <td>Finish final report + presentation</td>
+      </tr>
+    </table>
+    
+    <p class="w3-justify"> 
+    <font size="5"> Updated Goals &amp; Deliverables </font>
+    <br>
+    So far, we are on schedule, as detailed in our proposal. We have begun researching possible ways to parallelize A* and
+    designing our implementation. In previous attempts of parallel A*, researchers have sacrificed optimality of the solution
+    for speed. Therefore, the parallel versions, although fast, may not return the best solution.
+    <br>
+    Going forward, one concern we have is whether we will have to sacrifice optimality as well. Initially, we hoped to achieve 
+    great speed-up while also returning the optimal solution. If time permits, we will implement multiple versions of parallel
+    A*, varying in optimality of the solution. From this, we can compare the correlation between speed-up and suboptimality. 
+    <br>
+    </p>
+    Updated Goals:
+    <ul class="w3-justify">
+    <li> Optimize State and/or Board classes to improve both sequential and parallel efficiency </li>
+    <li> Determine a desired speed-up goal for the parallel algorithm compared to the baseline </li>
+    <li> Implement a parallel version using CUDA, based on results of research papers </li>
+    <li> Determine an optimal number of threads to use for the parallel version </li>
+    <li> Test our implementation on larger board sizes of the puzzle </li>
+    </ul> 
+    
+    <p class="w3-justify"> 
+    <font size="5"> Other Information </font>
+    <br>
+    For the parallelism competition, we will provide both a demo and graph. The demo will show the steps in order to solve the 
+    puzzle optimally. Therefore, the user could follow the printed steps to solve a randomly generated puzzle. 
+    We will also present a graph to demonstrate
+    speed-up between the sequential version that we've already implemented and the parallel version that we will implement in the future. 
     </p>
   </div>
 

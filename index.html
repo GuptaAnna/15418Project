@@ -262,13 +262,27 @@ td, th {
     <p class="w3-justify">
     <font size="5"> Summary </font>
     <br>
-   
+    We parallelized the A* algorithm, for use in solving the 15-Puzzle optimally. To achieve parallelism, we utilized pthreads and 
+    tested on the GHC machines. 
     </p>
     
     <p class="w3-justify">
     <font size="5"> Background </font>
     <br>
-    
+      - describe A* 
+      - describe the 15-puzzle
+      - priority queue
+      - hash table
+      A*: A* is a heuristic-based pathfinding algorithm. Given a weighted-graph and two nodes, the algorithm finds the shortest path between them. 
+      A algorithm uses two functions: we'll name them <b>g(n)</b> and <b>h(n)</b>. <b>g(n)</b> is the cost from the start to <i>n</i>, or 
+      the sum of the edges connecting start and <i>n</i>. <b>h(n)</b> is a heuristic, a function that estimates the cheapest cost from 
+      <i>n</i> to the goal. This function must be admissible, meaning it never overestimates the actual cost. Together, <b>f(n)</b> = 
+      g(n) + h(n), which represents the priority of the node. A lower f value means a lower cost is incurred to travel
+      through that node, ensuring a higher priority. The algorithm will explore nodes in order of priority. 
+      
+      <br>
+      15-Puzzle: This puzzle fits perfectly in the context of A*. Each board arrangement represents a node in the graph, with edges 
+      representing possible moves in the game. Therefore, two board arrangements will be connected by an edge if 
     </p>
     
     <p class="w3-justify">

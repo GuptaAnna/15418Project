@@ -10,13 +10,18 @@
 
 #include "state.cpp"
 #include "board.cpp"
+
+State* start;
+State* goal;
+std::vector<State*> path;
+int numThreads = 1;
+
 #include "priorityqueue.cpp"
 #include "tspriorityqueue.cpp"
 #include "sequential.cpp"
 #include "parallel.cpp"
 
 int main(int argc, char *argv[]) {
-    int numThreads = 1;
     int size = 4;
     int moves = -1;
     std::string inputFile = "";
@@ -38,7 +43,6 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    State* start;
     if (inputFile.empty()) {
         if (moves >= 0) {
             start = (State*)(new Board(size, moves));
@@ -51,20 +55,18 @@ int main(int argc, char *argv[]) {
     std::cout << "Start board:" << std::endl;
     std::cout << start->toString() << std::endl;
 
-    State* goal = (State*)(new Board(size, 0));
-
-    std::vector<State*> path;
+    goal = (State*)(new Board(size, 0));
 
     time_t start_t = time(0);
 
     if (numThreads == 1) {
-        path = sequential(start, goal);
+        sequential();
     } else {
+        parallel(numThreads);
     }
 
     time_t end_t = time(0);
     double time = difftime(end_t, start_t);
-    std::cout << "Time: " << time << "s" << std::endl;
 
     /*
     for (int i = 0; i < path.size(); i++) {
@@ -72,6 +74,7 @@ int main(int argc, char *argv[]) {
     }
     */
     std::cout << "Length of path: " << path.size()-1 << std::endl;
+    std::cout << "Total time: " << time << "s" << std::endl;
 
     return 0;
 }

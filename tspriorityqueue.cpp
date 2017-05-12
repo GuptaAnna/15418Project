@@ -5,7 +5,9 @@ public:
 
     typedef typename std::unordered_set<T, stateHash, stateEqual>::iterator iterator;
 
-    TSPriorityQueue(int n) {
+    TSPriorityQueue() {}
+
+    void init(int n) {
         numBuckets = n;
         locks = (pthread_mutex_t*)malloc(n * sizeof(pthread_mutex_t));
         for (int k = 0; k < n; k++) {

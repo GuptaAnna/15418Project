@@ -1,9 +1,8 @@
-std::vector<State*> sequential(State* start, State* goal) {
-	std::vector<State*> path;
+void sequential() {
 	std::vector<State*> tempPath;
 
 	std::unordered_set<State*, stateHash, stateEqual> hash;
-	
+
 	PriorityQueue<State*> open;
 
 	hash.insert(start);
@@ -33,9 +32,9 @@ std::vector<State*> sequential(State* start, State* goal) {
 			}
 			tempPath.push_back(start);
 			
-			int size = tempPath.size();
-			for (int i = 0; i < size; i++) {
-				path.push_back(tempPath[size-1-i]);
+			int pathLength = tempPath.size();
+			for (int i = 0; i < pathLength; i++) {
+				path.push_back(tempPath[pathLength-1-i]);
 			}
 
 			std::cout << "Size of open: " << open.size() << std::endl;
@@ -44,7 +43,7 @@ std::vector<State*> sequential(State* start, State* goal) {
 			std::cout << "Number of states seen (not unique): " << notUnique << std::endl;
 			std::cout << "Length of path: " << path.size()-1 << std::endl;
 
-			return path;
+			return;
 		}
 		
 		cur->removeOpen();
@@ -72,37 +71,5 @@ std::vector<State*> sequential(State* start, State* goal) {
 		}
 	}
 
-	return path;
-}
-
-
-
-void runSequential() {
-	int size = 4;
-	State* start = (State*)(new Board(size));
-	State* goal = (State*)(new Board(size, 0));
-
-
-    time_t start_t = time(0);
-	std::vector<State*> path = sequential(start, goal);
-
-    time_t end_t = time(0);
-    double time = difftime(end_t, start_t);
-
-    std::cout << "Time: " << time << std::endl;
-	/*
-	for (int i = 0; i < path.size(); i++) {
-		std::cout << path[i]->toString() << std::endl;
-	}
-	std::cout << "Length of path: " << path.size()-1 << std::endl;
-	*/
-
-	/*
-	std::cout << start->toString() << std::endl;
-	std::cout << goal->toString() << std::endl;
-	std::vector<State*> neighbors = start->getNeighbors();
-	for (int i = 0; i < neighbors.size(); i++) {
-		std::cout << neighbors[i]->toString() << std::endl;
-	}
-	*/
+	return;
 }

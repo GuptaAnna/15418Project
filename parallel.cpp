@@ -26,19 +26,11 @@ public:
 
 };
 
-int num_threads = 12;
-int size = 4;
-
-TSPriorityQueue<State*, stateHash, stateEqual> open(num_threads);
-std::vector<State*> path;
+TSPriorityQueue<State*, stateHash, stateEqual> open;
 Lock lock;
-State* start;
-State* goal;
 
-
-void* parallel(void* arg) {
+void* parallelThread(void* arg) {
     int thread_id = (int)(long long)(arg);
-    //std::cout << thread_id << std::endl;
 
     std::vector<State*> tempPath;
     
@@ -48,11 +40,11 @@ void* parallel(void* arg) {
     while (1) {
         
         if (thread_id == 0 && expanded%100000 == 0) {
-            for (int i = 0; i < num_threads; i++) {
+            for (int i = 0; i < numThreads; i++) {
                 printf("%d ", open.hashSize(i));
             }
             printf("\n");
-            for (int i = 0; i < num_threads; i++) {
+            for (int i = 0; i < numThreads; i++) {
                 printf("%d ", open.size(i));
             }
             printf("\n");
@@ -78,18 +70,13 @@ void* parallel(void* arg) {
 
             while (cur != start) {
                 tempPath.push_back(cur);
-                /*if (cur == NULL) {
-                    std::cout << "null" << std::endl;
-                } else {
-                    std::cout << cur->toString() << std::endl;
-                }*/
                 cur = cur->getPrev();
             }
             tempPath.push_back(start);
             
-            int size = tempPath.size();
-            for (int i = 0; i < size; i++) {
-                path.push_back(tempPath[size-1-i]);
+            int pathLength = tempPath.size();
+            for (int i = 0; i < pathLength; i++) {
+                path.push_back(tempPath[pathLength-1-i]);
             }
 
             std::cout << "Size of open: " << open.size(0) << std::endl;
@@ -114,50 +101,18 @@ void* parallel(void* arg) {
 }
 
 
-void runParallel() {
-    //std::cout << "beginning" << std::endl;
+void parallel(int numThreads) {
 
-    //int c = 0;
+    open.init(numThreads);
 
-    pthread_t threads[num_threads];
-
-    start = (State*)(new Board(size));
-    goal = (State*)(new Board(size, 0));
-
-    //std::cout << "here" << std::endl;
+    pthread_t threads[numThreads];
 
     open.push(start, NULL);
-
-    time_t start_t = time(0);
-    for (int i = 0; i < num_threads; i++) {
-        //c++;
-        pthread_create(&threads[i], NULL, &parallel, (void*)(long long)i);
+    for (int i = 0; i < numThreads; i++) {
+        pthread_create(&threads[i], NULL, &parallelThread, (void*)(long long)i);
     }
 
-    //std::cout << c << std::endl;
-
-    for (int i = 0; i < num_threads; i++) {
+    for (int i = 0; i < numThreads; i++) {
         pthread_join(threads[i], NULL);
     }
-
-    time_t end_t = time(0);
-    double time = difftime(end_t, start_t);
-
-    std::cout << "Time: " << time << std::endl;
-
-    /*
-    for (int i = 0; i < path.size(); i++) {
-        std::cout << path[i]->toString() << std::endl;
-    }
-    std::cout << "Length of path: " << path.size()-1 << std::endl;
-    */
-
-    /*
-    std::cout << start->toString() << std::endl;
-    std::cout << goal->toString() << std::endl;
-    std::vector<State*> neighbors = start->getNeighbors();
-    for (int i = 0; i < neighbors.size(); i++) {
-        std::cout << neighbors[i]->toString() << std::endl;
-    }
-    */
 }

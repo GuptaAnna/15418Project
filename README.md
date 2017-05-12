@@ -12,15 +12,19 @@ The layout of the file must be like: <br />
 
 The first line is the width of the board. The following files are the board input, with the 0 encoding the empty space. 
 
-Then, you can type the following into the command line: 
-1. make
-2. ./run -t numThreads -f filename
+Then, you can type the following into the command line:
+```
+    make
+    ./run -t numThreads -f filename
+```
 
 _numThreads_ should be the number of threads working on the algorithm. _filename_ is the full name of your file. We have sample files you can use in the _tests_ folder. 
 
 An example: 
-1. make 
-2. ./run -t 12 -f tests/med1.txt
+```
+    make
+    ./run -t 12 -f tests/med1.txt
+    ```
 
 ### Randomized Input
 

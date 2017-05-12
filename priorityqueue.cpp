@@ -44,6 +44,13 @@ public:
         }
     }
 
+    int getMinKey() {
+        if (!empty()) {
+            return heap[1]->getF();
+        }
+        return INT_MAX;
+    }
+
     void update(T element) {
         int idx = element->heapIdx;
         siftUp(idx);

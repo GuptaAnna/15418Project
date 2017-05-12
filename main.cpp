@@ -68,11 +68,6 @@ int main(int argc, char *argv[]) {
     time_t end_t = time(0);
     double time = difftime(end_t, start_t);
 
-    /*
-    for (int i = 0; i < path.size(); i++) {
-        std::cout << path[i]->toString() << std::endl;
-    }
-    */
     std::cout << "Length of path: " << path.size()-1 << std::endl;
     std::cout << "Total time: " << time << "s" << std::endl;
 

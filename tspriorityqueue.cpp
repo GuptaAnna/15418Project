@@ -23,6 +23,18 @@ public:
         pthread_mutex_unlock(&locks[k]);
         return b;
     }
+
+    T find(T element) {
+        int k = bucketNum(element);
+        T e = NULL;
+        pthread_mutex_lock(&locks[k]);
+        iterator it = hashes[k].find(element);
+        if (it != hashes[k].end()) {
+            e = *it;
+        }
+        pthread_mutex_unlock(&locks[k]);
+        return e;
+    }
     
     int size(int k) {
         pthread_mutex_lock(&locks[k]);
@@ -43,7 +55,7 @@ public:
         pthread_mutex_lock(&locks[k]);
         int altG;
         if (cur == NULL) {
-            altG = INT_MAX;
+            altG = 0;
         } else { 
             altG = cur->getG() + 1;
         } 
@@ -96,6 +108,13 @@ public:
         pthread_mutex_unlock(&locks[k]);
     }
 
+    int getMinKey(int k) {
+        pthread_mutex_lock(&locks[k]);
+        int key = pqs[k].getMinKey();
+        pthread_mutex_unlock(&locks[k]);
+        return key;
+    }
+
 private:
 
     pthread_mutex_t* locks;
@@ -105,7 +124,6 @@ private:
 
     int bucketNum(T element) {
         size_t hashval = stateHash()(element);
-        //std::cout << "hashval: " << hashval << std::endl;
         return hashval % numBuckets;
     }
     

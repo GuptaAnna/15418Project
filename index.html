@@ -291,10 +291,11 @@ td, th {
       <li> If the neighbor has been expanded before, we ignore it </li>
       <li> Else, we push it to the priority queue, if not there. In addition, we update the key value, if possible. </li>
       </ul>
+    <p class="w3-justify">
       Sequentially, one node would be popped from the queue at a time. We saw potential parallelism in this process in that 
       many nodes can be processed at the same time. 
     
-    <p>  
+    </p>  
       <p class="w3-justify">
       Hash Table: <br> To represent a board arrangement, we created a Board class. For every board arrangement, we wished to create
       only one Board object. To keep track of the board created, we kept a hash table, ensuring a unique object for each state in the
@@ -327,6 +328,20 @@ td, th {
     </p>
     
     <p class="w3-justify">
+    <font size="5"> Challenges </font>
+    <br>
+    When developing our implementation, we discovered the C++ library does not support an "update" function for priority queues. Therefore, 
+    in order to modify the key value of an element in the queue, we must delete the element and insert again with the updated key value. 
+    To circumvent this issue, we created our own implementation of a priority queue, supporting the insert operation. 
+    We also implemented a thread-safe data structure, consisting of a vector of coarse-grained priority queues. Each coarse-grained priority
+    queue was paired with a coarse-grained hash table, containing all the Board objects that had been pushed into the priority queue. Therefore,
+    each Board mapped to a hash table-priority queue duo, through a randomized hash function. 
+    <br><br>
+    It was difficult to create an efficient, load-balanced hash function. Initially, our parallel version did not see great speed-up. We 
+    discovered this was a result of a poor hash function, resulting in load imbalance and low speed-up.  
+    </p>
+    
+    <p class="w3-justify">
     <font size="5"> Results </font>
     <br>
     
@@ -335,13 +350,13 @@ td, th {
     <p class="w3-justify">
     <font size="5"> References </font>
     <br>
-    
+    None
     </p>
     
     <p class="w3-justify">
     <font size="5"> Distribution of Work </font>
     <br>
-    
+    Equal work was done by each group member. 
     </p>
   </div>
   

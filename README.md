@@ -5,10 +5,10 @@
 In order to run the algorithm on a specific board input, we can encode the board input in a file. 
 
 The layout of the file must be like: 
-3 
-1 3 4 
-2 5 6
-8 7 0
+3 <br />
+1 3 4 <br />
+2 5 6 <br />
+8 7 0 <br />
 
 The first line is the width of the board. The following files are the board input, with the 0 encoding the empty space. 
 

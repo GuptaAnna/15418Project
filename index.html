@@ -272,8 +272,8 @@ td, th {
       A*: <br> A* is a heuristic-based pathfinding algorithm. Given a weighted-graph and two nodes, the algorithm finds the shortest path between them. 
       A algorithm uses two functions: we'll name them <b>g(n)</b> and <b>h(n)</b>. <b>g(n)</b> is the cost from the start to <i>n</i>, or 
       the sum of the edges connecting start and <i>n</i>. <b>h(n)</b> is a heuristic, a function that estimates the cheapest cost from 
-      <i>n</i> to the goal. This function must be admissible, meaning it never overestimates the actual cost. Together, <b>f(n)</b> = 
-      g(n) + h(n), which represents the priority of the node. A lower f value means a lower cost is incurred to travel
+      <i>n</i> to the goal. This function must be admissible, meaning it never overestimates the actual cost. Together, <b>key(n)</b> = 
+      g(n) + h(n), which represents the priority of the node. A lower key value means a lower cost is incurred to travel
       through that node, ensuring a higher priority. The algorithm will explore nodes in order of priority. 
       
       <br><br>
@@ -282,11 +282,21 @@ td, th {
       to reach <i>n</i> from start. Using A*, we can find the shortest path between the start and goal arrangements. 
       
       <br><br>
-      Priority Queue: <br> T
-      
-      <br><br>
-      Hash Table: <br> T
+      Priority Queue: <br> The order of expansion is maintained by a priority queue. We begin by pushing the start node into the queue. 
+      Then, we repeat the following steps:
     </p>
+      <ul class="w3-justify">
+      <li> Pop the node with the lowest key value </li>
+      <li> Iterate over the neighbors of the node </li>
+      <li> If the neighbor has been expanded before, we ignore it </li>
+      <li> Else, we push it to the priority queue, if not there. In addition, we update the key value, if possible. </li>
+      </ul>
+    
+    <p>  
+      <br><br>
+      Hash Table: <br> To represent a board arrangement, we created a Board class. For every board arrangement, we wished to create
+      only one Board object. To keep track of the board created, we kept a hash table, ensuring a unique object for each state in the
+      game. 
     
     <p class="w3-justify">
     <font size="5"> Approach </font>

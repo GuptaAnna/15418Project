@@ -294,19 +294,19 @@ td, th {
       </ul>
     <p class="w3-justify">
       Sequentially, one node would be popped from the queue at a time. We saw potential parallelism in this process in that 
-      many nodes can be processed at the same time. 
+      many nodes can be popped and processed at the same time. 
     
     </p>  
       <p class="w3-justify">
-      Hash Table: <br> To represent a board arrangement, we created a Board class. For every board arrangement, we wished to create
-      only one Board object. To keep track of the board created, we kept a hash table, ensuring a unique object for each state in the
+      Hash Table: <br> To represent a board, we created a Board class. For every board, we wished to create
+      only one Board object. To keep track of the boards created, we kept a hash table, ensuring a unique object for each board in the
       game. 
     </p>
     
     <p class="w3-justify">
     <font size="5"> Previous Ideas </font>
     <br>
-    We brainstormed and researched many ideas to parallelize the A* algorithm: 
+    We brainstormed and researched many ideas to parallelize the A* algorithm, all of which had flaws: 
     </p>  
     <ul class="w3-justify">
       <li> Bidirectional search: In this approach, we run two simultaneous A* processes, 
@@ -331,21 +331,35 @@ td, th {
     a vector of priority queues, each being coarse-grained. Specifically, the length of the vector is equal to the number of threads 
     in the system. Therefore, each thread accesses from its own priority queue with no contention, increasing parallelism.  
     <br><br>
-    We created a hash function, mapping a Board object (a board arrangement in the game) to a value. This value mod n, n being the number
+    We created a hash function, mapping a Board object (a board in the game) to a value. This value mod n, n being the number
     of threads, is its index into the TSPriorityQueue, mapping to a priority queue. Since our hash function is randomized, 
     the neighbors of a node are likely to be hashed into different priority queues. This increases communication between threads and 
     balances load among the priority queues. Along with the vector of priority queues, we also have a vector of hash tables. Each priority
-    queue is paired with a hash table, and the hash table contains the Board objects that have been pushed into the priority queue. This 
-    avoids creating duplicate Board objects to represent the same board arrangement. 
+    queue is paired with a hash table, and a hash table contains the Board objects that have been pushed into its matching priority queue. 
+    This avoids creating duplicate Board objects to represent the same board arrangement. 
     <br><br>
     Our parallel version saw speed-up; however, we wished to ensure optimality of the solution outputted. The sequential A* was optimal, 
     because it pushed nodes in monotonically ascending order. Therefore, if we pop the goal state, we are assured that the key value
     seen is the lowest possible key value. However, this is not guaranteed when using multiple threads. For example, thread 0 could pop
     off a goal state with key value of 100. At the same time, thread 5 could pop off another node with key value of 50. This node could
-    then lead to the goal state with a lower key value of 100. To solve this issue, we replicated assignment 4 and created a handle-tick
+    then lead to the goal state with a lower key value than 100. To solve this issue, we replicated assignment 4 and created a handle-tick
     function. This function would check if the goal state has been expanded and, if so, compares its key value to the global minimum 
     of TSPriorityQueue. If the goal state's key value is smaller, then we are assured no smaller path to the goal state
     exists. 
+    </p>
+    
+    <p class="w3-justify">
+    <font size="5"> Further Optimization </font>
+    <br>
+    In our parallel implementation, each thread is mapped to a single priority queue. However, we wished to further lower 
+    contention and increase flexibility. We made further optimizations by increasing the number of priority queues through an integer "multiplier". 
+    Therefore, we would create <i>multiplier</i> priority queues for each thread, rather than 1. 
+    </p>
+    
+    <p class="w3-justify">
+    <font size="5"> Results </font>
+    <br>
+    
     </p>
     
     <p class="w3-justify">
@@ -360,12 +374,6 @@ td, th {
     <br><br>
     It was difficult to create an efficient, load-balanced hash function. Initially, our parallel version did not see great speed-up. We 
     discovered this was a result of a poor hash function, resulting in load imbalance and low speed-up.  
-    </p>
-    
-    <p class="w3-justify">
-    <font size="5"> Results </font>
-    <br>
-    
     </p>
     
     <p class="w3-justify">

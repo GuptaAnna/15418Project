@@ -14,7 +14,8 @@
 State* start;
 State* goal;
 std::vector<State*> path;
-int numThreads = 1;
+int numThreads = 0;
+int bucketMultiplier = -1;
 
 #include "priorityqueue.cpp"
 #include "tspriorityqueue.cpp"
@@ -26,10 +27,13 @@ int main(int argc, char *argv[]) {
     int moves = -1;
     std::string inputFile = "";
     int opt;
-    while ((opt = getopt(argc, argv, "t:s:m:f:")) != -1) {
+    while ((opt = getopt(argc, argv, "t:b:s:m:f:")) != -1) {
         switch (opt) {
             case 't':
                 numThreads = atoi(optarg);
+                break;
+            case 'b':
+                bucketMultiplier = atoi(optarg);
                 break;
             case 's':
                 size = atoi(optarg);
@@ -59,7 +63,7 @@ int main(int argc, char *argv[]) {
 
     time_t start_t = time(0);
 
-    if (numThreads == 1) {
+    if (numThreads == 0) {
         sequential();
     } else {
         parallel(numThreads);

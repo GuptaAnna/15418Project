@@ -1,5 +1,6 @@
 TSPriorityQueue<State*, stateHash, stateEqual> open;
 int lock = 0;
+int numBuckets;
 
 bool handle_tick() {
     State* element;
@@ -9,7 +10,7 @@ bool handle_tick() {
 
     int fval = element->getF();
 
-    for (int i = 0; i < numThreads; i++) {
+    for (int i = 0; i < numBuckets; i++) {
         if (open.getMinKey(i) < fval) {
             return false;
         }
@@ -40,7 +41,11 @@ void* parallelThread(void* arg) {
             if (lock == 1) {
                 return NULL;
             }
-            cur = open.pop(thread_id);
+            if (bucketMultiplier == -1) {
+                cur = open.pop(thread_id);
+            } else {
+                cur = open.pop(rand()%numBuckets);
+            }
         }
         
         cur->removeOpen();
@@ -78,7 +83,15 @@ void createPath() {
 
 void parallel(int numThreads) {
 
-    open.init(numThreads);
+    if (bucketMultiplier == -1) {
+        numBuckets = numThreads;
+    } else {
+        numBuckets = bucketMultiplier*numThreads;
+    }
+
+    srand(time(NULL));
+
+    open.init(numBuckets);
 
     pthread_t threads[numThreads];
 

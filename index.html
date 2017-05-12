@@ -291,13 +291,35 @@ td, th {
       <li> If the neighbor has been expanded before, we ignore it </li>
       <li> Else, we push it to the priority queue, if not there. In addition, we update the key value, if possible. </li>
       </ul>
+      Sequentially, one node would be popped from the queue at a time. We saw potential parallelism in this process in that 
+      many nodes can be processed at the same time. 
     
     <p>  
-      <br><br>
+      <p class="w3-justify">
       Hash Table: <br> To represent a board arrangement, we created a Board class. For every board arrangement, we wished to create
       only one Board object. To keep track of the board created, we kept a hash table, ensuring a unique object for each state in the
       game. 
+    </p>
     
+    <p class="w3-justify">
+    <font size="5"> Previous Ideas </font>
+    <br>
+    We brainstormed and researched many ideas to parallelize the A* algorithm: 
+    </p>  
+    <ul class="w3-justify">
+      <li> Bidirectional search: In this approach, we run two simultaneous A* processes, 
+           one branching from the start node, the other branching from the goal node. The two processes would meet in the middle, 
+           achieving potential speedup by a factor of 2. However, this approach does not scale beyond 2 threads. We hoped to achieve
+           further parallelism than this approach would. </li>
+      <li> Fine-grained priority queue: This would allow multiple threads to insert / pop from the priority queue simultaneously. 
+           However, there would be high contention on the root node, since all threads would strive to access it. This would 
+           severly limit parallelism. </li>
+      <li> Multiple independent A* processes: With this approach, we would run independent A* processes on the neighbors of the 
+           start node. This seems like it's achieving parallelism, since multiple paths are being explored in parallel. However, 
+           the processes are likely to expand the same states. Due to low communication between threads, redundant work is being
+           executed, resulting in little to no speed-up. </li>
+      </ul>
+      
     <p class="w3-justify">
     <font size="5"> Approach </font>
     <br>

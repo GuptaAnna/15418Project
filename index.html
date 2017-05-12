@@ -324,7 +324,27 @@ td, th {
     <p class="w3-justify">
     <font size="5"> Approach </font>
     <br>
-    
+    Our final idea involved spawning multiple threads, each popping and inserting into a coarse-grained priority queue simultaneously. 
+    However, due to high contention on the root node and low arithmetic intensity (a thread accesses the priority queue frequently),  
+    speed-up would be minimal. Therefore, we split the data structure into multiple priority queues. Our TSPriorityQueue class contained
+    a vector of priority queues, each being coarse-grained. Specifically, the length of the vector is equal to the number of threads 
+    in the system. Therefore, each thread accesses from its own priority queue with no contention, increasing parallelism.  
+    <br><br>
+    We created a hash function, mapping a Board object (a board arrangement in the game) to a value. This value mod n, n being the number
+    of threads, is its index into the TSPriorityQueue, mapping to a priority queue. Since our hash function is randomized, 
+    the neighbors of a node are likely to be hashed into different priority queues. This increases communication between threads and 
+    balances load among the priority queues. Along with the vector of priority queues, we also have a vector of hash tables. Each priority
+    queue is paired with a hash table, and the hash table contains the Board objects that have been pushed into the priority queue. This 
+    avoids creating duplicate Board objects to represent the same board arrangement. 
+    <br><br>
+    Our parallel version saw speed-up; however, we wished to ensure optimality of the solution outputted. The sequential A* was optimal, 
+    because it pushed nodes in monotonically ascending order. Therefore, if we pop the goal state, we are assured that the key value
+    seen is the lowest possible key value. However, this is not guaranteed when using multiple threads. For example, thread 0 could pop
+    off a goal state with key value of 100. At the same time, thread 5 could pop off another node with key value of 50. This node could
+    then lead to the goal state with a lower key value of 100. To solve this issue, we replicated assignment 4 and created a handle-tick
+    function. This function would check if the goal state has been expanded and, if so, compares its key value to the global minimum 
+    of TSPriorityQueue. If the goal state's key value is smaller, then we are assured no smaller path to the goal state
+    exists. 
     </p>
     
     <p class="w3-justify">
@@ -334,8 +354,8 @@ td, th {
     in order to modify the key value of an element in the queue, we must delete the element and insert again with the updated key value. 
     To circumvent this issue, we created our own implementation of a priority queue, supporting the insert operation. 
     We also implemented a thread-safe data structure, consisting of a vector of coarse-grained priority queues. Each coarse-grained priority
-    queue was paired with a coarse-grained hash table, containing all the Board objects that had been pushed into the priority queue. Therefore,
-    each Board mapped to a hash table-priority queue duo, through a randomized hash function. 
+    queue was paired with a coarse-grained hash table, containing all the Board objects that had been pushed into the priority queue. 
+    Therefore, each Board mapped to a hash table-priority queue duo, through a randomized hash function. 
     <br><br>
     It was difficult to create an efficient, load-balanced hash function. Initially, our parallel version did not see great speed-up. We 
     discovered this was a result of a poor hash function, resulting in load imbalance and low speed-up.  

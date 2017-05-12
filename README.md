@@ -4,7 +4,7 @@
 
 In order to run the algorithm on a specific board input, we can encode the board input in a file. 
 
-The layout of the file must be like: 
+The layout of the file must be like: <br />
 3 <br />
 1 3 4 <br />
 2 5 6 <br />

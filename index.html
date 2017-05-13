@@ -361,14 +361,17 @@ td, th {
     <br>
           
     <center>
-    <img src="graphs/runtime.png" width = "400" height = "300" alt="Runtime"><br>
+    <img src="graphs/runtime.png" width = "533" height = "400" alt="Runtime"><br>
     Figure 1
     </center>  
+      
+    <p class="w3-justify">
     To produce this graph, we ran 3 files, each with a 4x4 board input. We compared our sequential implementation with ou parallel version,
     varying the number of threads used. We ran this code on the GHC machines, which has 8 hyperthreaded cores. The initial increase in 
     execution time (between sequential and 2-threaded versions) could be due to large overhead in spawning threads. As thread count increases,
     execution time significantly decreases. 
-      
+    </p>
+    
     <center>
     <img src="graphs/speedup.png" alt="Speedup"><br>
     Figure 2

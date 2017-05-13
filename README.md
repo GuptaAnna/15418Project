@@ -20,9 +20,9 @@ make
 ./run -t numThreads -b bucketMultiplier -f filename 
 ```
 
-- _numThreads_: The number of threads working on the algorithm. The default value of 0 runs the sequential implementation. An input 
+- _numThreads_: The number of threads working on the algorithm. If the flag is omitted, the sequential implementation is ran. An input 
     greater than 0 runs the parallel version. 
-- _bucketMultiplier_: If running the parallel version (numThreads > 0), the program will allot _bucketMultiplier_ number of priority
+- _bucketMultiplier_: If running the parallel version, the program will allot _bucketMultiplier_ number of priority
     queues per thread. The default value is 1. 
 - _filename_: The full name of your file. We have sample files you can use in the _tests_ folder. 
 
@@ -35,7 +35,7 @@ make
 This will run the parallel version on tests/med1.txt with 12 threads, each thread getting 128 priority queues. 
 ```
 make
-./run -t 0 -f tests/med1.txt
+./run -f tests/med1.txt
 ```
 This will run the sequential version on tests/med1.txt. 
 
@@ -49,9 +49,9 @@ make
 ./run -t numThreads -b bucketMultiplier -m moves -s size
 ```
 
-- _numThreads_: The number of threads working on the algorithm. The default value of 0 runs the sequential implementation. An input 
-    greater than 0 runs the parallel version. 
-- _bucketMultiplier_: If running the parallel version (numThreads > 0), the program will allot _bucketMultiplier_ number of priority
+- _numThreads_: The number of threads working on the algorithm. If the flag is omitted, the sequential implementation is ran. An input 
+    greater than 0 runs the parallel version.
+- _bucketMultiplier_: If running the parallel version, the program will allot _bucketMultiplier_ number of priority
     queues per thread. The default value is 1. 
 - _moves_: The system will begin with the goal board and perform _m_ randomly generated moves. A greater _m_ signifies a more randomized board. 
 - _size_: The width of the board. The default value is 3. 

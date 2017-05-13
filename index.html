@@ -373,25 +373,30 @@ td, th {
     </p>
     
     <center>
-    <img src="graphs/speedup.png" alt="Speedup"><br>
+    <img src="graphs/speedup.png" width = "533" height = "400" alt="Speedup"><br>
     Figure 2
     </center>  
+    <p class="w3-justify">
     This displays the same data as Figure 1. On the y-axis, we plot speed-up, rather than execution time. The 12-threaded version
     sees 2x speed-up compared to the sequential version. 
+    </p>
       
     <center>
-    <img src="graphs/runtime_optimized.png" alt="Runtime Optimized"><br>
+    <img src="graphs/runtime_optimized.png" width = "533" height = "400" alt="Runtime Optimized"><br>
     Figure 3
     </center>  
+    <p class="w3-justify">
     This graph runs the same files as before. All factors are constant, except we utilize 128 priority queues per thread, 
     rather than 1 per. We chose 128 after meticulous testing. Too few priority queues results in contention, whereas 
     too many priority queues is wasteful of memory. Compared to Figure 1, there is a sharper decrease in execution time, with the 
-    12-threaded version taking significantly less time. 
+    12-threaded version taking significantly less time.
+    </p>
       
     <center>
-    <img src="graphs/speedup_optimized.png" alt="Speedup Optimized"><br>
+    <img src="graphs/speedup_optimized.png" width = "533" height = "400" alt="Speedup Optimized"><br>
     Figure 4
     </center>  
+    <p class="w3-justify">
     This displays the same data as Figure 3, plotting speed-up rather than execution time. Recall that with 1 priority queue per thread, 
     we achieved a 2x speedup. With the increase in priority queues, we achieve a 5-6x speedup. This optimization was very successful. 
     
@@ -414,7 +419,7 @@ td, th {
     <p class="w3-justify">
     <font size="5"> References </font>
     <br>
-    None
+    The algorithm for parallelization and optimality was created by ourselves. 
     </p>
     
     <p class="w3-justify">

@@ -283,7 +283,7 @@ td, th {
       to reach <i>n</i> from start. Using A*, we can find the shortest path between the start and goal arrangements. 
       
       <center>
-      <img src="graphs/AStar.png" width = "533" height = "400" alt="AStar"><br>
+      <img src="images/AStar.png" width = "533" height = "400" alt="AStar"><br>
       </center>  
       
       <br><br>
@@ -336,7 +336,7 @@ td, th {
     a vector of priority queues, each being coarse-grained. Specifically, the length of the vector is equal to the number of threads 
     in the system. Therefore, each thread accesses from its own priority queue with no contention, increasing parallelism.  
     <center>
-    <img src="graphs/TSPriorityQueue.png" width = "533" height = "400" alt="TSPriorityQueue"><br>
+    <img src="images/TSPriorityQueue.png" width = "533" height = "400" alt="TSPriorityQueue"><br>
     </center> 
     <br><br>
     Hash Table and Hash Function: <br>
@@ -375,7 +375,7 @@ td, th {
     </center>  
       
     <p class="w3-justify">
-    Figure 1: To produce this graph, we ran 3 files, each with a 4x4 board input. We compared our sequential implementation with our parallel version,
+    Figure 1: To produce this graph, we ran 3 files, each with a 4x4 board input. We compared our sequential baseline with our parallel version,
     varying the number of threads used. We ran this code on the GHC machines, which has 8 hyperthreaded cores. The initial increase in 
     execution time (between sequential and 2-threaded versions) could be due to large overhead in spawning threads. As thread count increases,
     execution time significantly decreases. 

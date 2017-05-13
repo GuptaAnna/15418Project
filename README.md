@@ -30,9 +30,9 @@ make
 Examples: 
 ```
 make
-./run -t 12 -b 128 -f tests/med1.txt
+./run -t 16 -b 128 -f tests/med1.txt
 ```
-This will run the parallel version on tests/med1.txt with 12 threads, each thread getting 128 priority queues. 
+This will run the parallel version on tests/med1.txt with 16 threads, each thread getting 128 priority queues. 
 ```
 make
 ./run -f tests/med1.txt
@@ -59,7 +59,6 @@ make
 An example: 
 ```
 make
-./run -t 12 -b 1 -m 200 -s 4
+./run -t 16 -b 1 -m 200 -s 4
 ```
-This will run after performing 200 randomly generated moves on the goal board, with width 4. It will support 12 threads, each with one 
-priority queue. 
+This will run after performing 200 randomly generated moves on the goal board, with width 4. It will support 16 threads, each with one priority queue. 

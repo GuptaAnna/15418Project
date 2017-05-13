@@ -353,12 +353,44 @@ td, th {
     <br>
     In our parallel implementation, each thread is mapped to a single priority queue. However, we wished to further lower 
     contention and increase flexibility. We made further optimizations by increasing the number of priority queues through an integer "multiplier". 
-    Therefore, we would create <i>multiplier</i> priority queues for each thread, rather than 1. 
+    Therefore, we would create <i>multiplier</i> number of priority queues for each thread, rather than 1 per. 
     </p>
     
     <p class="w3-justify">
     <font size="5"> Results </font>
     <br>
+    
+    <center>
+    <img src="graphs/runtime.png" alt="Runtime"><br>
+    Figure 1
+    </center>  
+    To produce this graph, we ran 3 files, each with a 4x4 board input. We compared our sequential implementation with ou parallel version,
+    varying the number of threads used. We ran this code on the GHC machines, which has 8 hyperthreaded cores. The initial increase in 
+    execution time (between sequential and 2-threaded versions) could be due to large overhead in spawning threads. As thread count increases,
+    execution time significantly decreases. 
+      
+    <center>
+    <img src="graphs/speedup.png" alt="Speedup"><br>
+    Figure 2
+    </center>  
+    This displays the same data as Figure 1. On the y-axis, we plot speed-up, rather than execution time. The 12-threaded version
+    sees 2x speed-up compared to the sequential version. 
+      
+    <center>
+    <img src="graphs/runtime_optimized.png" alt="Runtime Optimized"><br>
+    Figure 3
+    </center>  
+    This graph runs the same files as before. All factors are constant, except we utilize 128 priority queues per thread, 
+    rather than 1 per. We chose 128 after meticulous testing. Too few priority queues results in contention, whereas 
+    too many priority queues is wasteful of memory. Compared to Figure 1, there is a sharper decrease in execution time, with the 
+    12-threaded version taking significantly less time. 
+      
+    <center>
+    <img src="graphs/speedup_optimized.png" alt="Speedup Optimized"><br>
+    Figure 4
+    </center>  
+    This displays the same data as Figure 3, plotting speed-up rather than execution time. Recall that with 1 priority queue per thread, 
+    we achieved a 2x speedup. With the increase in priority queues, we achieve a 5-6x speedup. This optimization was very successful. 
     
     </p>
     

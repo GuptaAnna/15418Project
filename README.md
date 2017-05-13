@@ -2,7 +2,7 @@
 
 ### Running a File
 
-In order to run the algorithm on a specific board input, we can encode the board input in a file. 
+In order to run the A\* algorithm on a specific board input of the puzzle, we can encode the board input in a file. 
 
 The layout of the file must be like: <br />
 ```

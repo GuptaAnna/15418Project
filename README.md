@@ -32,7 +32,7 @@ Examples:
 make
 ./run -t 16 -b 128 -f tests/med1.txt
 ```
-This will run the parallel version on tests/med1.txt with 16 threads, each thread getting 128 priority queues. 
+This will run the parallel version on tests/med1.txt with 16 threads, each thread getting an average 128 priority queues. 
 ```
 make
 ./run -f tests/med1.txt

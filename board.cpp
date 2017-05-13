@@ -171,12 +171,14 @@ public:
 
     std::string toString() {
         std::string s;
+        /*
         s += "Board of size " + std::to_string(size) + ":\n";
         s += "f=" + std::to_string(f) + ", ";
         s += "g=" + std::to_string(g) + ", ";
         s += "h=" + std::to_string(h) + "\n";
         s += "inOpen=" + std::to_string(inOpen) + "\n";
         s += "hashval=" + std::to_string(hashval) + "\n";
+        */
         s += "emptyRow=" + std::to_string(emptyRow) + " ";
         s += "emptyCol=" + std::to_string(emptyCol) + "\n";
         for (int i = 0; i < size; i++) {

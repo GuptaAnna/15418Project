@@ -26,7 +26,7 @@ void* parallelThread(void* arg) {
         
         if (thread_id == 0 && expanded%10000 == 0) {
             if (expanded % 100000 == 0) {
-                printf("...\n");
+                printf("Finding optimal solution...\n");
             }
             if (handle_tick()) {
                 lock = 1;

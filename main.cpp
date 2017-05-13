@@ -59,6 +59,16 @@ int main(int argc, char *argv[]) {
     std::cout << "Start board:" << std::endl;
     std::cout << start->toString() << std::endl;
 
+    if (numThreads == 0) {
+        std::cout << "Running sequential baseline..." << std::endl;
+    } else {
+        std::cout << "Running parallel version with " << numThreads << " threads..." << std::endl;
+    }
+    if (bucketMultiplier != -1) {
+        int numBuckets = bucketMultiplier * numThreads;
+        std::cout << "Using " << numBuckets << " buckets..." << std::endl;
+    }
+
     goal = (State*)(new Board(size, 0));
 
     time_t start_t = time(0);
@@ -72,7 +82,14 @@ int main(int argc, char *argv[]) {
     time_t end_t = time(0);
     double time = difftime(end_t, start_t);
 
-    std::cout << "Length of path: " << path.size()-1 << std::endl;
+
+    std::cout << "Optimal solution found!" << std::endl << std::endl;
+    int length = path.size();
+    for (int i = 0; i < length; i++) {
+        std::cout << "Step " << i << ":" << std::endl;
+        std::cout << path[i]->toString() << std::endl;
+    }
+    std::cout << "Length of path: " << length-1 << std::endl;
     std::cout << "Total time: " << time << "s" << std::endl;
 
     return 0;

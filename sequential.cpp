@@ -13,7 +13,7 @@ void sequential() {
 
 	while (!open.empty()) {
 		if (expanded%100000 == 0) {
-			printf("...\n");
+			printf("Finding optimal solution...\n");
 		}
 
 		expanded++;
@@ -37,23 +37,32 @@ void sequential() {
 		cur->removeOpen();
 		std::vector<State*> neighbors = cur->getNeighbors();
 		
+		int altG = cur->getG() + 1;
 		for (int i = 0; i < neighbors.size(); i++) {
 			State* neighbor = neighbors[i];
 			std::unordered_set<State*, stateHash, stateEqual>::iterator it = hash.find(neighbor);
 			if (it != hash.end()) {
+				// found existing state
 				delete neighbor;
 				neighbor = *it;
+
+				if (altG < neighbor->getG()) {
+					neighbor->setPrev(cur);
+					neighbor->setG(altG);
+					if (neighbor->checkOpen()) {
+						open.update(neighbor);            
+					} else {
+						open.push(neighbor);
+					}
+				}
 			} else {
+				// new state
 				hash.insert(neighbor);
 				neighbor->addOpen();
-				open.push(neighbor);
-			}
-
-			int altG = cur->getG() + 1;
-			if (neighbor->checkOpen() && altG < neighbor->getG()) {
+				
 				neighbor->setPrev(cur);
 				neighbor->setG(altG);
-				open.update(neighbor);
+				open.push(neighbor);
 			}
 		}
 	}

@@ -325,12 +325,14 @@ td, th {
     <p class="w3-justify">
     <font size="5"> Our Final Approach </font>
     <br>
-    Our final idea involved spawning multiple threads, each popping and inserting into a coarse-grained priority queue simultaneously. 
+    POSIX Threads and TSPriorityQueue class: <br>
+    Our final idea involved spawning multiple POSIX threads, each popping and inserting into a coarse-grained priority queue simultaneously. 
     However, due to high contention on the root node and low arithmetic intensity (a thread accesses the priority queue frequently),  
     speed-up would be minimal. Therefore, we split the data structure into multiple priority queues. Our TSPriorityQueue class contained
     a vector of priority queues, each being coarse-grained. Specifically, the length of the vector is equal to the number of threads 
     in the system. Therefore, each thread accesses from its own priority queue with no contention, increasing parallelism.  
     <br><br>
+    Hash Table and Hash Function: <br>
     We created a hash function, mapping a Board object (a board in the game) to a value. This value mod n, n being the number
     of threads, is its index into the TSPriorityQueue, mapping to a priority queue. Since our hash function is randomized, 
     the neighbors of a node are likely to be hashed into different priority queues. This increases communication between threads and 
@@ -338,6 +340,7 @@ td, th {
     queue is paired with a hash table, and a hash table contains the Board objects that have been pushed into its matching priority queue. 
     This avoids creating duplicate Board objects to represent the same board arrangement. 
     <br><br>
+    Ensuring Optimality of Solution: <br>
     Our parallel version saw speed-up; however, we wished to ensure optimality of the solution outputted. The sequential A* was optimal, 
     because it pushed nodes in monotonically ascending order. Therefore, if we pop the goal state, we are assured that the key value
     seen is the lowest possible key value. However, this is not guaranteed when using multiple threads. For example, thread 0 could pop
@@ -362,11 +365,10 @@ td, th {
           
     <center>
     <img src="graphs/runtime.png" width = "533" height = "400" alt="Runtime"><br>
-    Figure 1
     </center>  
       
     <p class="w3-justify">
-    To produce this graph, we ran 3 files, each with a 4x4 board input. We compared our sequential implementation with ou parallel version,
+    Figure 1: To produce this graph, we ran 3 files, each with a 4x4 board input. We compared our sequential implementation with ou parallel version,
     varying the number of threads used. We ran this code on the GHC machines, which has 8 hyperthreaded cores. The initial increase in 
     execution time (between sequential and 2-threaded versions) could be due to large overhead in spawning threads. As thread count increases,
     execution time significantly decreases. 
@@ -374,19 +376,17 @@ td, th {
     
     <center>
     <img src="graphs/speedup.png" width = "533" height = "400" alt="Speedup"><br>
-    Figure 2
     </center>  
     <p class="w3-justify">
-    This displays the same data as Figure 1. On the y-axis, we plot speed-up, rather than execution time. The 12-threaded version
+    Figure 2: This displays the same data as Figure 1. On the y-axis, we plot speed-up, rather than execution time. The 12-threaded version
     sees 2x speed-up compared to the sequential version. 
     </p>
       
     <center>
     <img src="graphs/runtime_optimized.png" width = "533" height = "400" alt="Runtime Optimized"><br>
-    Figure 3
     </center>  
     <p class="w3-justify">
-    This graph runs the same files as before. All factors are constant, except we utilize 128 priority queues per thread, 
+    Figure 3: This graph runs the same files as before. All factors are constant, except we utilize 128 priority queues per thread, 
     rather than 1 per. We chose 128 after meticulous testing. Too few priority queues results in contention, whereas 
     too many priority queues is wasteful of memory. Compared to Figure 1, there is a sharper decrease in execution time, with the 
     12-threaded version taking significantly less time.
@@ -394,10 +394,9 @@ td, th {
       
     <center>
     <img src="graphs/speedup_optimized.png" width = "533" height = "400" alt="Speedup Optimized"><br>
-    Figure 4
     </center>  
     <p class="w3-justify">
-    This displays the same data as Figure 3, plotting speed-up rather than execution time. Recall that with 1 priority queue per thread, 
+    Figure 4: This displays the same data as Figure 3, plotting speed-up rather than execution time. Recall that with 1 priority queue per thread, 
     we achieved a 2x speedup. With the increase in priority queues, we achieve a 5-6x speedup. This optimization was very successful. 
     
     </p>
@@ -408,9 +407,7 @@ td, th {
     When developing our implementation, we discovered the C++ library does not support an "update" function for priority queues. Therefore, 
     in order to modify the key value of an element in the queue, we must delete the element and insert again with the updated key value. 
     To circumvent this issue, we created our own implementation of a priority queue, supporting the insert operation. 
-    We also implemented a thread-safe data structure, consisting of a vector of coarse-grained priority queues. Each coarse-grained priority
-    queue was paired with a coarse-grained hash table, containing all the Board objects that had been pushed into the priority queue. 
-    Therefore, each Board mapped to a hash table-priority queue duo, through a randomized hash function. 
+    We also implemented a thread-safe data structure, consisting of a vector of coarse-grained priority queues. 
     <br><br>
     It was difficult to create an efficient, load-balanced hash function. Initially, our parallel version did not see great speed-up. We 
     discovered this was a result of a poor hash function, resulting in load imbalance and low speed-up.  
@@ -419,7 +416,7 @@ td, th {
     <p class="w3-justify">
     <font size="5"> References </font>
     <br>
-    The algorithm for parallelization and optimality was created by ourselves. 
+    The algorithm for parallelization and ensuring optimality was created by ourselves. 
     </p>
     
     <p class="w3-justify">

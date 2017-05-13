@@ -282,6 +282,10 @@ td, th {
       representing possible moves in the game. Each edge will have a weight of 1, so <b>g(n)</b> represents the smallest number of moves 
       to reach <i>n</i> from start. Using A*, we can find the shortest path between the start and goal arrangements. 
       
+      <center>
+      <img src="graphs/AStar.png" width = "533" height = "400" alt="AStar"><br>
+      </center>  
+      
       <br><br>
       Priority Queue: <br> The order of expansion is maintained by a priority queue. We begin by pushing the start node into the queue. 
       Then, we repeat the following steps:
@@ -331,6 +335,9 @@ td, th {
     speed-up would be minimal. Therefore, we split the data structure into multiple priority queues. Our TSPriorityQueue class contained
     a vector of priority queues, each being coarse-grained. Specifically, the length of the vector is equal to the number of threads 
     in the system. Therefore, each thread accesses from its own priority queue with no contention, increasing parallelism.  
+    <center>
+    <img src="graphs/TSPriorityQueue.png" width = "533" height = "400" alt="TSPriorityQueue"><br>
+    </center> 
     <br><br>
     Hash Table and Hash Function: <br>
     We created a hash function, mapping a Board object (a board in the game) to a value. This value mod n, n being the number
@@ -368,7 +375,7 @@ td, th {
     </center>  
       
     <p class="w3-justify">
-    Figure 1: To produce this graph, we ran 3 files, each with a 4x4 board input. We compared our sequential implementation with ou parallel version,
+    Figure 1: To produce this graph, we ran 3 files, each with a 4x4 board input. We compared our sequential implementation with our parallel version,
     varying the number of threads used. We ran this code on the GHC machines, which has 8 hyperthreaded cores. The initial increase in 
     execution time (between sequential and 2-threaded versions) could be due to large overhead in spawning threads. As thread count increases,
     execution time significantly decreases. 
@@ -378,7 +385,7 @@ td, th {
     <img src="graphs/speedup.png" width = "533" height = "400" alt="Speedup"><br>
     </center>  
     <p class="w3-justify">
-    Figure 2: This displays the same data as Figure 1. On the y-axis, we plot speed-up, rather than execution time. The 12-threaded version
+    Figure 2: This displays the same data as Figure 1. On the y-axis, we plot speed-up, rather than execution time. The 16-threaded version
     sees 2x speed-up compared to the sequential version. 
     </p>
       
@@ -389,7 +396,7 @@ td, th {
     Figure 3: This graph runs the same files as before. All factors are constant, except we utilize 128 priority queues per thread, 
     rather than 1 per. We chose 128 after meticulous testing. Too few priority queues results in contention, whereas 
     too many priority queues is wasteful of memory. Compared to Figure 1, there is a sharper decrease in execution time, with the 
-    12-threaded version taking significantly less time.
+    16-threaded version taking significantly less time.
     </p>
       
     <center>
